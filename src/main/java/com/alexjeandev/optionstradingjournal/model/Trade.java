@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 public class Trade {
@@ -16,5 +17,11 @@ public class Trade {
     private String symbol;
     private String optionType;
     private BigDecimal strikePrice;
+    private int contracts;
     private BigDecimal premium;
+    private LocalDate tradeDate;
+    private LocalDate expirationDate;
+    private String status;
+    private LocalDate closeDate;
+    private BigDecimal realizedPnl;
 }
