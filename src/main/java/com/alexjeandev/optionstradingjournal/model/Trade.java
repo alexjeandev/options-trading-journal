@@ -188,5 +188,6 @@ public class Trade {
         if (status == null) {
             throw new IllegalArgumentException("Trade status is required");
         }
+
     }
 }
