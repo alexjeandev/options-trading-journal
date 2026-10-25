@@ -156,7 +156,7 @@ public class Trade {
             throw new IllegalArgumentException("Closed trade must have a realized PNL");
         }
         if ("OPEN".equals(status) && realizedPnl != null) {
-            throw new IllegalArgumentException("Open trade cannot havea realized PNL");
+            throw new IllegalArgumentException("Open trade cannot have a realized PNL");
         }
         if (expirationDate != null && tradeDate != null && expirationDate.isBefore(tradeDate)) {
             throw new IllegalArgumentException("Expiration date cannot be before trade date");
@@ -166,6 +166,27 @@ public class Trade {
         }
         if (symbol == null || symbol.isBlank()) {
             throw new IllegalArgumentException("No ticker added to trade");
+        }
+        if (optionType == null) {
+            throw new IllegalArgumentException("Option type is required");
+        }
+        if (strikePrice == null || strikePrice.compareTo(BigDecimal.ZERO) <= 0 ) {
+            throw new IllegalArgumentException("Invalid strike price");
+        }
+        if (contracts < 1) {
+            throw new IllegalArgumentException("Invalid number of contracts");
+        }
+        if (premium == null || premium.compareTo(BigDecimal.ZERO) < 1) {
+            throw new IllegalArgumentException("Invalid premium");
+        }
+        if (tradeDate == null) {
+            throw new IllegalArgumentException("Trade date is required");
+        }
+        if (expirationDate == null) {
+            throw new IllegalArgumentException("Expiration date is required");
+        }
+        if (status == null) {
+            throw new IllegalArgumentException("Trade status is required");
         }
     }
 }
