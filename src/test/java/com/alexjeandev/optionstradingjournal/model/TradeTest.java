@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TradeTest {
 
@@ -230,4 +229,147 @@ public class TradeTest {
                 IllegalArgumentException.class, trade::validateTrade);
         assertEquals("Trade status is required", exception.getMessage());
     }
+
+    @Test
+    void testClosedTradeMissingCloseDate() {
+        Trade trade = new Trade();
+        trade.setSymbol("AAPL");
+        trade.setOptionType("call");
+        trade.setStrikePrice(new BigDecimal(5));
+        trade.setContracts(5);
+        trade.setPremium(new BigDecimal(250));
+        trade.setTradeDate(LocalDate.of(2025, 1, 1));
+        trade.setExpirationDate(LocalDate.of(2025, 5,5));
+        trade.setStatus("Closed");
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class, trade::validateTrade);
+        assertEquals("Closed trades must have a closing date", exception.getMessage());
+    }
+
+    @Test
+    void testOpenTradeWithCloseDate() {
+        Trade trade = new Trade();
+        trade.setSymbol("AAPL");
+        trade.setOptionType("call");
+        trade.setStrikePrice(new BigDecimal(5));
+        trade.setContracts(5);
+        trade.setPremium(new BigDecimal(250));
+        trade.setTradeDate(LocalDate.of(2025, 1, 1));
+        trade.setExpirationDate(LocalDate.of(2025, 5,5));
+        trade.setStatus("Open");
+        trade.setCloseDate(LocalDate.of(2025, 8, 2));
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class, trade::validateTrade);
+        assertEquals("Open trades can't have a close date", exception.getMessage());
+    }
+
+    @Test
+    void testClosedTradeMissingRealizedPnl() {
+        Trade trade = new Trade();
+        trade.setSymbol("AAPL");
+        trade.setOptionType("call");
+        trade.setStrikePrice(new BigDecimal(5));
+        trade.setContracts(5);
+        trade.setPremium(new BigDecimal(250));
+        trade.setTradeDate(LocalDate.of(2025, 1, 1));
+        trade.setExpirationDate(LocalDate.of(2025, 5,5));
+        trade.setStatus("Closed");
+        trade.setCloseDate(LocalDate.of(2025, 8, 2));
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class, trade::validateTrade);
+        assertEquals("Closed trade must have a realized PNL", exception.getMessage());
+    }
+
+    @Test
+    void testOpenTradeWithRealizedPnl() {
+        Trade trade = new Trade();
+        trade.setSymbol("AAPL");
+        trade.setOptionType("call");
+        trade.setStrikePrice(new BigDecimal(5));
+        trade.setContracts(5);
+        trade.setPremium(new BigDecimal(250));
+        trade.setTradeDate(LocalDate.of(2025, 1, 1));
+        trade.setExpirationDate(LocalDate.of(2025, 5,5));
+        trade.setStatus("Open");
+        trade.setRealizedPnl(new BigDecimal(200));
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class, trade::validateTrade);
+        assertEquals("Open trade cannot have a realized PNL", exception.getMessage());
+    }
+
+    @Test
+    void testExpirationBeforeTradeDate() {
+        Trade trade = new Trade();
+        trade.setSymbol("AAPL");
+        trade.setOptionType("call");
+        trade.setStrikePrice(new BigDecimal(5));
+        trade.setContracts(5);
+        trade.setPremium(new BigDecimal(250));
+        trade.setTradeDate(LocalDate.of(2025, 6, 1));
+        trade.setExpirationDate(LocalDate.of(2025, 5,5));
+        trade.setStatus("Open");
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class, trade::validateTrade);
+        assertEquals("Expiration date cannot be before trade date", exception.getMessage());
+    }
+
+    @Test
+    void testCloseDateBeforeTradeDate() {
+        Trade trade = new Trade();
+        trade.setSymbol("AAPL");
+        trade.setOptionType("call");
+        trade.setStrikePrice(new BigDecimal(5));
+        trade.setContracts(5);
+        trade.setPremium(new BigDecimal(250));
+        trade.setTradeDate(LocalDate.of(2025, 6, 1));
+        trade.setExpirationDate(LocalDate.of(2025, 9,5));
+        trade.setStatus("Closed");
+        trade.setCloseDate(LocalDate.of(2025, 4, 2));
+        trade.setRealizedPnl(new BigDecimal(200));
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class, trade::validateTrade);
+        assertEquals("Closing date cannot be before opening date", exception.getMessage());
+    }
+
+    @Test
+    void testValidOpenTrade() {
+        Trade trade = new Trade();
+        trade.setSymbol("AAPL");
+        trade.setOptionType("call");
+        trade.setStrikePrice(new BigDecimal(5));
+        trade.setContracts(5);
+        trade.setPremium(new BigDecimal(250));
+        trade.setTradeDate(LocalDate.of(2025, 6, 1));
+        trade.setExpirationDate(LocalDate.of(2025, 9,5));
+        trade.setStatus("Open");
+
+        assertDoesNotThrow(trade::validateTrade);
+
+    }
+
+    @Test
+    void testValidCloseTrade() {
+        Trade trade = new Trade();
+        trade.setSymbol("AAPL");
+        trade.setOptionType("call");
+        trade.setStrikePrice(new BigDecimal(5));
+        trade.setContracts(5);
+        trade.setPremium(new BigDecimal(250));
+        trade.setTradeDate(LocalDate.of(2025, 1, 1));
+        trade.setExpirationDate(LocalDate.of(2025, 9,5));
+        trade.setStatus("Closed");
+        trade.setCloseDate(LocalDate.of(2025, 4, 2));
+        trade.setRealizedPnl(new BigDecimal(200));
+
+        assertDoesNotThrow(trade::validateTrade);
+
+    }
 }
+
+
