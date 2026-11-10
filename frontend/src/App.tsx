@@ -1,9 +1,9 @@
+import Header from './components/Header'
+
 function App() {
   return (
-      <div className="bg-blue-900 min-h-screen text-white p-10">
-        <h1 className="text-4xl font-bold">
-          Calls, Puts & Pancakes 🥞
-        </h1>
+      <div className="bg-background min-h-screen text-text-primary font-sans">
+          <Header />
       </div>
   )
 }
