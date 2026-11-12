@@ -2,14 +2,14 @@ function Header() {
     return (
         <header className="sticky top-0 z-50 bg-navbar">
             <nav className='relative flex items-center px-12 py-3'>
-                <a href="/"><img src="/purplegradientfinal.png" alt="Calls Puts & Pancakes logo"
-                                 className="h-15 w-auto"/></a>
+                <a href="/"><img src="/calls-puts-commas.svg" alt="Calls Puts & Pancakes logo"
+                                 className="h-8 w-auto"/></a>
 
                 <div className="flex gap-9 text-nav-link text-sm font-normal
                 leading-5 tracking-[-0.16px] absolute left-1/2 -translate-x-1/2">
                     <a href="" className="hover:text-nav-hover transition-colors duration-300">Home </a>
-                    <a href="" className="hover:text-nav-hover transition-colors duration-300">Features </a>
                     <a href="" className="hover:text-nav-hover transition-colors duration-300">Preview </a>
+                    <a href="" className="hover:text-nav-hover transition-colors duration-300">Feature </a>
 
                 </div>
 
