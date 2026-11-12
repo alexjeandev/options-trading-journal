@@ -52,7 +52,7 @@
     background-clip: text;
     -webkit-background-clip: text;
 
-    animation: shine-sweep 12s linear 3s infinite;
+    animation: shine-sweep 12s linear 2s infinite;
     animation-fill-mode: backwards;
 }
 
