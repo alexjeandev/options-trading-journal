@@ -34,4 +34,45 @@
     /* Text */
     --color-text-primary: #F5F5F7;
     --color-text-secondary: #A99BBF;
+
+
 }
+
+.hero-shine {
+    color: transparent;
+
+    background: linear-gradient(
+            110deg,
+            transparent 43%,
+            rgba(255, 255, 255, 0.95) 50%,
+            transparent 57%
+    ) 100% 0;
+
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    animation: shine-sweep 12s linear 3s infinite;
+    animation-fill-mode: backwards;
+}
+
+@keyframes shine-sweep {
+    0% {
+        background-position: 100% 0;
+    }
+
+    7.5% {
+        background-position: 0% 0;
+    }
+
+    100% {
+        background-position: 0% 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-shine {
+        animation: none;
+    }
+}
+
