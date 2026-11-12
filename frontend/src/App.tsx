@@ -1,12 +1,11 @@
-import Header from './components/Header'
-import Hero from './components/Hero'
+import {Route, Routes} from "react-router-dom";
+import LandingPage from "./pages/LandingPage.tsx";
 
 function App() {
   return (
-      <div className="bg-background min-h-screen text-text-primary font-sans">
-          <Header />
-          <Hero />
-      </div>
+      <Routes>
+          <Route path="/" element={<LandingPage />} />
+      </Routes>
   )
 }
 

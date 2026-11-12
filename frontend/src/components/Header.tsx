@@ -7,10 +7,10 @@ function Header() {
 
                 <div className="flex gap-9 text-nav-link text-sm font-normal
                 leading-5 tracking-[-0.16px] absolute left-1/2 -translate-x-1/2">
-                    <a href="" className="hover:text-nav-hover transition-colors duration-300">Dashboard</a>
-                    <a href="" className="hover:text-nav-hover transition-colors duration-300">Charts</a>
-                    <a href="" className="hover:text-nav-hover transition-colors duration-300">News</a>
-                    <a href="" className="hover:text-nav-hover transition-colors duration-300">Pancakes</a>
+                    <a href="" className="hover:text-nav-hover transition-colors duration-300">Home </a>
+                    <a href="" className="hover:text-nav-hover transition-colors duration-300">Features </a>
+                    <a href="" className="hover:text-nav-hover transition-colors duration-300">Preview </a>
+
                 </div>
 
                 <button className="right-12 absolute bg-violet text-gray-200 px-3 py-1 rounded-full
